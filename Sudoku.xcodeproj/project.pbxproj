@@ -13,6 +13,8 @@
 		0755B4591E1C21C7004FAC1A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0755B4581E1C21C7004FAC1A /* Assets.xcassets */; };
 		0755B45C1E1C21C7004FAC1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0755B45A1E1C21C7004FAC1A /* LaunchScreen.storyboard */; };
 		0755B4671E1C21C7004FAC1A /* SudokuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0755B4661E1C21C7004FAC1A /* SudokuTests.swift */; };
+		0762908A1E1CFAEF00FE2337 /* Sudoku.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076290891E1CFAEF00FE2337 /* Sudoku.swift */; };
+		07D1D68A1E1C3178008C3979 /* SudokuGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07D1D6891E1C3178008C3979 /* SudokuGrid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		0755B4621E1C21C7004FAC1A /* SudokuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0755B4661E1C21C7004FAC1A /* SudokuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuTests.swift; sourceTree = "<group>"; };
 		0755B4681E1C21C7004FAC1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		076290891E1CFAEF00FE2337 /* Sudoku.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sudoku.swift; sourceTree = "<group>"; };
+		07D1D6891E1C3178008C3979 /* SudokuGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SudokuGrid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +82,10 @@
 			isa = PBXGroup;
 			children = (
 				0755B4511E1C21C7004FAC1A /* AppDelegate.swift */,
+				076290891E1CFAEF00FE2337 /* Sudoku.swift */,
 				0755B4531E1C21C7004FAC1A /* ViewController.swift */,
 				0755B4551E1C21C7004FAC1A /* Main.storyboard */,
+				07D1D6891E1C3178008C3979 /* SudokuGrid.swift */,
 				0755B4581E1C21C7004FAC1A /* Assets.xcassets */,
 				0755B45A1E1C21C7004FAC1A /* LaunchScreen.storyboard */,
 				0755B45D1E1C21C7004FAC1A /* Info.plist */,
@@ -203,6 +209,8 @@
 			files = (
 				0755B4541E1C21C7004FAC1A /* ViewController.swift in Sources */,
 				0755B4521E1C21C7004FAC1A /* AppDelegate.swift in Sources */,
+				0762908A1E1CFAEF00FE2337 /* Sudoku.swift in Sources */,
+				07D1D68A1E1C3178008C3979 /* SudokuGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +349,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3H2J8552ML;
 				INFOPLIST_FILE = Sudoku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -354,6 +363,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 3H2J8552ML;
 				INFOPLIST_FILE = Sudoku/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -412,6 +422,7 @@
 				0755B46D1E1C21C7004FAC1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0755B46E1E1C21C7004FAC1A /* Build configuration list for PBXNativeTarget "SudokuTests" */ = {
 			isa = XCConfigurationList;
@@ -420,6 +431,7 @@
 				0755B4701E1C21C7004FAC1A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
