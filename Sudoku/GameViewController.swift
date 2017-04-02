@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import os.log
+
 
 class GameViewController: UIViewController {
 
@@ -16,12 +18,18 @@ class GameViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var mistakesLabel: UILabel!
     @IBOutlet weak var multplierLabel: UILabel!
-    
+    @IBOutlet weak var backButton: UIButton!
+
     var timer:Timer?
     var seconds = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let loadedGame = loadGame() {
+            grid.sudoku = loadedGame
+        } else {
+            grid.sudoku = Sudoku()
+        }
         timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector:#selector(onUpdateTimer), userInfo: nil, repeats:true)
     }
 
@@ -54,7 +62,26 @@ class GameViewController: UIViewController {
         }
         grid.fieldSet(value: String(sender .tag))
     }
-   
+    
+    @IBAction func backButttonPushed(_ sender: UIButton) {
+        saveGame()
+        
+    }
+    
+    //MARK: Private Methods
+    private func saveGame() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(grid.sudoku, toFile: Sudoku.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Game successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save game...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loadGame() -> Sudoku?  {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Sudoku.ArchiveURL.path) as? Sudoku
+    }
+    
     /*
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
