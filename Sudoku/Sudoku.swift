@@ -21,7 +21,6 @@ class Sudoku {
     //MARK: Initialization
     
     init() {
-        let start = NSDate().timeIntervalSince1970
         gameGrid = [[Int]](repeating:[Int](repeating:0, count:n*n), count:n*n)
         var rowIdx = 0
         while rowIdx<n*n {
@@ -51,13 +50,11 @@ class Sudoku {
             }
             rowIdx += 1
         }
-        print("Time for creating grid: ", NSDate().timeIntervalSince1970 - start, " sec")
-//        answer = gameGrid
-//        deleteFields()
+        answer = gameGrid
+        deleteFields()
     }
     
     // This method removing digits, which are already used in row/column/block, from array
-    
     func getPossibleDigits(currentRow: Int, currentCol:Int) -> [Int] {
         var result = digits
         for rowIdx in (currentRow/n)*n..<currentRow {
@@ -100,17 +97,10 @@ class Sudoku {
                 for copy_i in 0..<n*n {
                     table_solution.append(gameGrid[copy_i])
                 }
-                /*var i_solution = 0
-                for _ in solving(board: table_solution) {
-                    print("check solutions")
-                    i_solution += 1
-                }*/
-                //print(digitCount)
-                //print("Solutions count = ", i_solution)
                 if !solving(board: table_solution) {
                     gameGrid[i][j] = temp
                     digitCount += 1
-                }
+                } 
                 if digitCount == difficult{
                     return
                 }

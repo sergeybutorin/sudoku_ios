@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class GameViewController: UIViewController {
 
     // MARK: Properties
     @IBOutlet weak var grid: SudokuGrid!
@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     
     var timer:Timer?
     var seconds = 0
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
