@@ -21,45 +21,55 @@ class Sudoku {
     //MARK: Initialization
     
     init() {
+        let start = NSDate().timeIntervalSince1970
         gameGrid = [[Int]](repeating:[Int](repeating:0, count:n*n), count:n*n)
         var rowIdx = 0
         while rowIdx<n*n {
             var colIdx = 0
-            var colWrong = 0
+            var cellWrong = 0, rowWrong = 0
             while colIdx<n*n {
-                var digitsForBlock = getDigitsForBlock(currentRow: rowIdx, currentCol: colIdx)
+                var digitsForBlock = getPossibleDigits(currentRow: rowIdx, currentCol: colIdx)
                 if digitsForBlock.isEmpty {
-                    gameGrid[rowIdx] = [Int](repeating:0, count:n*n)
-                    colIdx = 0
-                    rowIdx -= 1
-                    gameGrid[rowIdx] = [Int](repeating:0, count:n*n)
+                    colIdx -= 1
+                    gameGrid[rowIdx][colIdx] = 0
+                    cellWrong += 1
+                    if (cellWrong > 3) {
+                        gameGrid[rowIdx] = [Int](repeating:0, count:n*n)
+                        colIdx = 0
+                        cellWrong = 0
+                        rowWrong += 1
+                        if (rowWrong > 3) {
+                            rowIdx -= 1
+                            gameGrid[rowIdx] = [Int](repeating:0, count:n*n)
+                            rowWrong = 0
+                        }
+                    }
                     continue
                 }
-                while !digitsForBlock.isEmpty {
-                    let digit = digitsForBlock.remove(at: Int(arc4random_uniform(UInt32(digitsForBlock.count))))
-                    if checkDigit(currentRow: rowIdx, currentCol: colIdx, digit: digit) {
-                        gameGrid[rowIdx][colIdx] = digit
-                        break
-                    } else {
-                        colWrong += 1 //???
-                    }
-                }
-
+                gameGrid[rowIdx][colIdx] = digitsForBlock.remove(at: Int(arc4random_uniform(UInt32(digitsForBlock.count))))
                 colIdx += 1
             }
             rowIdx += 1
         }
+        print("Time for creating grid: ", NSDate().timeIntervalSince1970 - start, " sec")
 //        answer = gameGrid
 //        deleteFields()
     }
     
-    func getDigitsForBlock(currentRow: Int, currentCol:Int) -> [Int] {
+    // This method removing digits, which are already used in row/column/block, from array
+    
+    func getPossibleDigits(currentRow: Int, currentCol:Int) -> [Int] {
         var result = digits
         for rowIdx in (currentRow/n)*n..<currentRow {
-            for colIdx in (currentCol/n)*n..<currentCol {
+            for colIdx in (currentCol/n)*n..<(currentCol/n + 1)*n {
                 if result.contains(gameGrid[rowIdx][colIdx]) {
                     result.remove(at: result.index(of: gameGrid[rowIdx][colIdx])!)
                 }
+            }
+        }
+        for rowIdx in 0..<currentRow {
+            if result.contains(gameGrid[rowIdx][currentCol]) {
+                result.remove(at: result.index(of: gameGrid[rowIdx][currentCol])!)
             }
         }
         for colIdx in 0..<currentCol {
@@ -68,47 +78,7 @@ class Sudoku {
             }
             
         }
-        for rowIdx in 0..<currentRow {
-            if result.contains(gameGrid[rowIdx][currentCol]) {
-                result.remove(at: result.index(of: gameGrid[rowIdx][currentCol])!)
-            }
-        }
         return result
-    }
-    
-    func checkDigit(currentRow: Int, currentCol:Int, digit: Int) -> Bool {
-        return checkRow(currentRow:currentRow, currentCol:currentCol, digit:digit) &&
-            checkCol(currentRow:currentRow, currentCol:currentCol, digit:digit) &&
-            checkBlock(currentRow:currentRow, currentCol:currentCol, digit:digit)
-    }
-    
-    func checkRow(currentRow: Int, currentCol:Int, digit: Int) -> Bool {
-        for rowIdx in 0..<currentRow {
-            if gameGrid[rowIdx][currentCol] == digit {
-                return false
-            }
-        }
-        return true
-    }
-    
-    func checkCol(currentRow: Int, currentCol:Int, digit: Int) -> Bool {
-        for colIdx in 0..<currentCol {
-            if gameGrid[currentRow][colIdx] == digit {
-                return false
-            }
-        }
-        return true
-    }
-    
-    func checkBlock(currentRow: Int, currentCol:Int, digit: Int) -> Bool {
-        for rowIdx in (currentRow/n)*n..<(currentRow/n + 1)*n {
-            for colIdx in (currentCol/n)*n..<(currentCol/n + 1)*n {
-                if gameGrid[rowIdx][colIdx] == digit {
-                    return false
-                }
-            }
-        }
-        return true
     }
     
     func deleteFields(difficult: Int = 30) {
