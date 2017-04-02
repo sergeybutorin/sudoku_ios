@@ -58,7 +58,7 @@ import UIKit
         for i in 0..<9 {
             for j in 0..<9 {
                 let field = UIButton(frame: CGRect(x: xPos, y: yPos, width: w, height: h))
-                let num = sudoku.numbersArr[i][j]
+                let num = sudoku.gameGrid[i][j]
                 if num >= 1 && num <= 9{
                     field.backgroundColor = UIColor.green
                     field.setTitle(String(num), for: .normal)

@@ -10,95 +10,105 @@ import Foundation
 import Accelerate
 
 class Sudoku {
-    var numbersArr = [[Int]]()
+    var gameGrid = [[Int]]()
     var answer = [[Int]]()
     var mistakes = 0
     var scoreMultiplier: UInt = 1000
     var score: UInt = 0
     let n = 3
+    let digits = [1,2,3,4,5,6,7,8,9]
     
     //MARK: Initialization
     
     init() {
-        numbersArr = [[Int]](repeating:[Int](repeating:0, count:n*n), count:n*n)
-        for i in 0..<n*n {
-            for j in 0..<n*n {
-                numbersArr[i][j] = ((i*n + i/n + j) % (n*n) + 1)
+        gameGrid = [[Int]](repeating:[Int](repeating:0, count:n*n), count:n*n)
+        var rowIdx = 0
+        while rowIdx<n*n {
+            var colIdx = 0
+            var colWrong = 0
+            while colIdx<n*n {
+                var digitsForBlock = getDigitsForBlock(currentRow: rowIdx, currentCol: colIdx)
+                if digitsForBlock.isEmpty {
+                    gameGrid[rowIdx] = [Int](repeating:0, count:n*n)
+                    colIdx = 0
+                    rowIdx -= 1
+                    gameGrid[rowIdx] = [Int](repeating:0, count:n*n)
+                    continue
+                }
+                while !digitsForBlock.isEmpty {
+                    let digit = digitsForBlock.remove(at: Int(arc4random_uniform(UInt32(digitsForBlock.count))))
+                    if checkDigit(currentRow: rowIdx, currentCol: colIdx, digit: digit) {
+                        gameGrid[rowIdx][colIdx] = digit
+                        break
+                    } else {
+                        colWrong += 1 //???
+                    }
+                }
+
+                colIdx += 1
+            }
+            rowIdx += 1
+        }
+//        answer = gameGrid
+//        deleteFields()
+    }
+    
+    func getDigitsForBlock(currentRow: Int, currentCol:Int) -> [Int] {
+        var result = digits
+        for rowIdx in (currentRow/n)*n..<currentRow {
+            for colIdx in (currentCol/n)*n..<currentCol {
+                if result.contains(gameGrid[rowIdx][colIdx]) {
+                    result.remove(at: result.index(of: gameGrid[rowIdx][colIdx])!)
+                }
             }
         }
-        mix(n: 1000)
-        answer = numbersArr
-        deleteFields()
-    }
-    
-    // Транспонирование матрицы
-    
-    func transposing()
-    {
-        for rowIdx in 0..<n*n {
-            for colIdx in rowIdx+1..<n*n {
-                swap(&numbersArr[rowIdx][colIdx], &numbersArr[colIdx][rowIdx])
+        for colIdx in 0..<currentCol {
+            if result.contains(gameGrid[currentRow][colIdx]) {
+                result.remove(at: result.index(of: gameGrid[currentRow][colIdx])!)
+            }
+            
+        }
+        for rowIdx in 0..<currentRow {
+            if result.contains(gameGrid[rowIdx][currentCol]) {
+                result.remove(at: result.index(of: gameGrid[rowIdx][currentCol])!)
             }
         }
+        return result
     }
     
-    // Обмен двух строк
-    
-    func swapRowsSmall() {
-        let area = Int(arc4random_uniform(UInt32(n)))
-        let line1 = Int(arc4random_uniform(UInt32(n)))
-        var line2 = Int(arc4random_uniform(UInt32(n)))
-        while (line1 == line2){
-            line2 = Int(arc4random_uniform(UInt32(n)))
-        }
-        swap(&numbersArr[area * n + line1], &numbersArr[area * n + line2])
+    func checkDigit(currentRow: Int, currentCol:Int, digit: Int) -> Bool {
+        return checkRow(currentRow:currentRow, currentCol:currentCol, digit:digit) &&
+            checkCol(currentRow:currentRow, currentCol:currentCol, digit:digit) &&
+            checkBlock(currentRow:currentRow, currentCol:currentCol, digit:digit)
     }
     
-    // Обмен двух столбцов
-    
-    func swapColumsSmall(){
-        transposing()
-        swapRowsSmall()
-        transposing()
-    }
-    
-    func swapRowsArea(){
-        let area1 = Int(arc4random_uniform(UInt32(n)))
-        var area2 = Int(arc4random_uniform(UInt32(n)))
-        while (area1 == area2){
-            area2 = Int(arc4random_uniform(UInt32(n)))
-        }
-        for i in 0..<n{
-            swap(&numbersArr[area1 * n + i], &numbersArr[area2 * n + i])
-        }
-    }
-    
-    func swapColumsArea(){
-        transposing()
-        swapRowsArea()
-        transposing()
-    }
-    
-    //
-    
-    func mix(n: Int = 20) {
-        for _ in 0...n {
-            let funcNum = Int(arc4random_uniform(UInt32(5)) + 1)
-            switch funcNum {
-            case 1:
-                transposing()
-            case 2:
-                swapRowsSmall()
-            case 3:
-                swapColumsSmall()
-            case 4:
-                swapRowsArea()
-            case 5:
-                swapColumsArea()
-            default:
-                fatalError("Wrong number of function: \(funcNum)")
+    func checkRow(currentRow: Int, currentCol:Int, digit: Int) -> Bool {
+        for rowIdx in 0..<currentRow {
+            if gameGrid[rowIdx][currentCol] == digit {
+                return false
             }
         }
+        return true
+    }
+    
+    func checkCol(currentRow: Int, currentCol:Int, digit: Int) -> Bool {
+        for colIdx in 0..<currentCol {
+            if gameGrid[currentRow][colIdx] == digit {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func checkBlock(currentRow: Int, currentCol:Int, digit: Int) -> Bool {
+        for rowIdx in (currentRow/n)*n..<(currentRow/n + 1)*n {
+            for colIdx in (currentCol/n)*n..<(currentCol/n + 1)*n {
+                if gameGrid[rowIdx][colIdx] == digit {
+                    return false
+                }
+            }
+        }
+        return true
     }
     
     func deleteFields(difficult: Int = 30) {
@@ -112,13 +122,13 @@ class Sudoku {
                 iterator += 1
                 flook[i][j] = 1
                 
-                let temp = numbersArr[i][j]
-                numbersArr[i][j] = 0
+                let temp = gameGrid[i][j]
+                gameGrid[i][j] = 0
                 digitCount -= 1
                 
                 var table_solution = [[Int]]()
                 for copy_i in 0..<n*n {
-                    table_solution.append(numbersArr[copy_i])
+                    table_solution.append(gameGrid[copy_i])
                 }
                 /*var i_solution = 0
                 for _ in solving(board: table_solution) {
@@ -128,7 +138,7 @@ class Sudoku {
                 //print(digitCount)
                 //print("Solutions count = ", i_solution)
                 if !solving(board: table_solution) {
-                    numbersArr[i][j] = temp
+                    gameGrid[i][j] = temp
                     digitCount += 1
                 }
                 if digitCount == difficult{
