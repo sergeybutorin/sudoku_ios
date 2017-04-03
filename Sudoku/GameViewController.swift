@@ -21,13 +21,18 @@ class GameViewController: UIViewController {
     
     var timer:Timer?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        if let loadedGame = loadGame() {
+    func startGame(isNewGame: Bool) {
+        if isNewGame {
+            grid.sudoku = Sudoku()
+        } else if let loadedGame = loadGame() {
             grid.sudoku = loadedGame
         } else {
-            grid.sudoku = Sudoku()
+            os_log("Failed to load game...", log: OSLog.default, type: .error)
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector:#selector(onUpdateTimer), userInfo: nil, repeats:true)
     }
     
@@ -67,7 +72,8 @@ class GameViewController: UIViewController {
     
     @IBAction func backButtonPushed(_ sender: UIButton) {
         saveGame()
-        
+        let MenuViewController = storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        self.present(MenuViewController, animated:true, completion:nil)
     }
     
     //MARK: Private Methods
