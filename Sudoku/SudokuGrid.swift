@@ -12,7 +12,7 @@ import UIKit
 @IBDesignable class SudokuGrid: UIView {
     // MARK: Properties
     private var fields = [UIButton]()
-    var sudoku: Sudoku!
+    var sudoku: Sudoku! = Sudoku()
     private var fi: UIButton!
     
     
@@ -85,6 +85,7 @@ import UIKit
             yPos += (h + 1)
         }
     }
+    
     
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

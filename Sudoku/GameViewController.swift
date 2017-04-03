@@ -9,7 +9,6 @@
 import UIKit
 import os.log
 
-
 class GameViewController: UIViewController {
 
     // MARK: Properties
@@ -18,8 +17,8 @@ class GameViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var mistakesLabel: UILabel!
     @IBOutlet weak var multplierLabel: UILabel!
-    @IBOutlet weak var backButton: UIButton!
-
+    @IBOutlet weak var backButton: UIView!
+    
     var timer:Timer?
     
     func startGame(isNewGame: Bool) {
@@ -34,11 +33,6 @@ class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let loadedGame = loadGame() {
-            grid.sudoku = loadedGame
-        } else {
-            grid.sudoku = Sudoku()
-        }
         timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector:#selector(onUpdateTimer), userInfo: nil, repeats:true)
     }
     
@@ -76,9 +70,10 @@ class GameViewController: UIViewController {
         saveGame()
     }
     
-    @IBAction func backButttonPushed(_ sender: UIButton) {
+    @IBAction func backButtonPushed(_ sender: UIButton) {
         saveGame()
-        
+        let MenuViewController = storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        self.present(MenuViewController, animated:true, completion:nil)
     }
     
     //MARK: Private Methods
@@ -93,11 +88,5 @@ class GameViewController: UIViewController {
     
     private func loadGame() -> Sudoku?  {
         return NSKeyedUnarchiver.unarchiveObject(withFile: Sudoku.ArchiveURL.path) as? Sudoku
-    }
-    
-    /*
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 }

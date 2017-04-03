@@ -36,7 +36,7 @@ class Sudoku: NSObject, NSCoding{
         static let mistakes = "mistakes"
         static let scoreMultiplier = "scoreMultiplier"
         static let score = "score"
-        static let time = "time"
+        static let seconds = "seconds"
     }
     
     //MARK: Initialization
@@ -76,12 +76,13 @@ class Sudoku: NSObject, NSCoding{
         deleteFields()
     }
     
-    init(_grid: [[Int]], _answer: [[Int]], _mistakes: UInt, _scoreMultiplier: UInt, _score: UInt) {
+    init(_grid: [[Int]], _answer: [[Int]], _mistakes: UInt, _scoreMultiplier: UInt, _score: UInt, _seconds: UInt) {
         gameGrid = _grid
         answer = _answer
         mistakes = _mistakes
         scoreMultiplier = _scoreMultiplier
         score = _score
+        seconds = _seconds
     }
     
     // This method removing digits, which are already used in row/column/block, from array
@@ -178,7 +179,7 @@ class Sudoku: NSObject, NSCoding{
         aCoder.encode(mistakes, forKey: PropertyKey.mistakes)
         aCoder.encode(scoreMultiplier, forKey: PropertyKey.scoreMultiplier)
         aCoder.encode(score, forKey: PropertyKey.score)
-        //aCoder.encode(timer, forKey: PropertyKey.time)
+        aCoder.encode(seconds, forKey: PropertyKey.seconds)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -202,6 +203,10 @@ class Sudoku: NSObject, NSCoding{
             os_log("Unable to decode score.", log: OSLog.default, type: .debug)
             return nil
         }
-        self.init(_grid: gameGrid, _answer: answer, _mistakes: mistakes, _scoreMultiplier: scoreMultiplier, _score: score)
+        guard let seconds = aDecoder.decodeObject(forKey: PropertyKey.seconds) as? UInt else {
+            os_log("Unable to decode time.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        self.init(_grid: gameGrid, _answer: answer, _mistakes: mistakes, _scoreMultiplier: scoreMultiplier, _score: score, _seconds: seconds)
     }
 }
