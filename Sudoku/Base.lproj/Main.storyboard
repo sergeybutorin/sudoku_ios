@@ -240,6 +240,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uVr-dc-iWo">
+                                <rect key="frame" x="22" y="535" width="34" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="backButtonPushed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XAp-R6-uFm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -261,6 +269,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="8bC-Xf-vdC" id="6dc-hu-9Ev"/>
                         <outlet property="grid" destination="eUh-le-dCC" id="d1f-eE-ly3"/>
                         <outlet property="mistakesLabel" destination="5ed-ja-wZZ" id="pwV-rg-Wu4"/>
                         <outlet property="multplierLabel" destination="qw9-qQ-bTq" id="iiI-Sk-swW"/>

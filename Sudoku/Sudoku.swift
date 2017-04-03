@@ -8,19 +8,41 @@
 
 import Foundation
 import Accelerate
+import os.log
 
-class Sudoku {
+class Sudoku: NSObject, NSCoding{
+    
+    //MARK: Properties
+    
     var gameGrid = [[Int]]()
     var answer = [[Int]]()
-    var mistakes = 0
+    var mistakes: UInt = 0
     var scoreMultiplier: UInt = 1000
     var score: UInt = 0
+    var seconds: UInt = 0
     let n = 3
     let digits = [1,2,3,4,5,6,7,8,9]
     
+    //MARK: Archiving Paths
+    
+    static let DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    static let ArchiveURL = DocumentsDirectory.appendingPathComponent("sudoku")
+    
+    //MARK: Types
+    
+    struct PropertyKey {
+        static let grid = "grid"
+        static let answer = "answer"
+        static let mistakes = "mistakes"
+        static let scoreMultiplier = "scoreMultiplier"
+        static let score = "score"
+        static let seconds = "seconds"
+    }
+    
     //MARK: Initialization
     
-    init() {
+    override init() {
+        super.init()
         gameGrid = [[Int]](repeating:[Int](repeating:0, count:n*n), count:n*n)
         var rowIdx = 0
         while rowIdx<n*n {
@@ -52,6 +74,15 @@ class Sudoku {
         }
         answer = gameGrid
         deleteFields()
+    }
+    
+    init(_grid: [[Int]], _answer: [[Int]], _mistakes: UInt, _scoreMultiplier: UInt, _score: UInt, _seconds: UInt) {
+        gameGrid = _grid
+        answer = _answer
+        mistakes = _mistakes
+        scoreMultiplier = _scoreMultiplier
+        score = _score
+        seconds = _seconds
     }
     
     // This method removing digits, which are already used in row/column/block, from array
@@ -100,7 +131,7 @@ class Sudoku {
                 if !solving(board: table_solution) {
                     gameGrid[i][j] = temp
                     digitCount += 1
-                } 
+                }
                 if digitCount == difficult{
                     return
                 }
@@ -125,7 +156,7 @@ class Sudoku {
         }
         return isSolved
     }
-
+    
     
     
     func subgrid(_ board: [[Int]], pos: (Int, Int)) -> [Int] {
@@ -141,5 +172,41 @@ class Sudoku {
         return r
     }
     
+    //MARK: NSCoding
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(gameGrid, forKey: PropertyKey.grid)
+        aCoder.encode(answer, forKey: PropertyKey.answer)
+        aCoder.encode(mistakes, forKey: PropertyKey.mistakes)
+        aCoder.encode(scoreMultiplier, forKey: PropertyKey.scoreMultiplier)
+        aCoder.encode(score, forKey: PropertyKey.score)
+        aCoder.encode(seconds, forKey: PropertyKey.seconds)
+    }
     
+    required convenience init?(coder aDecoder: NSCoder) {
+        guard let gameGrid = aDecoder.decodeObject(forKey: PropertyKey.grid) as? [[Int]] else {
+            os_log("Unable to decode the Game grid.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        guard let answer = aDecoder.decodeObject(forKey: PropertyKey.answer) as? [[Int]] else {
+            os_log("Unable to decode the answer.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        guard let mistakes = aDecoder.decodeObject(forKey: PropertyKey.mistakes) as? UInt else {
+            os_log("Unable to decode mistakes.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        guard let scoreMultiplier = aDecoder.decodeObject(forKey: PropertyKey.scoreMultiplier) as? UInt else {
+            os_log("Unable to decode scoreMultiplier.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        guard let score = aDecoder.decodeObject(forKey: PropertyKey.score) as? UInt else {
+            os_log("Unable to decode score.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        guard let seconds = aDecoder.decodeObject(forKey: PropertyKey.seconds) as? UInt else {
+            os_log("Unable to decode time.", log: OSLog.default, type: .debug)
+            return nil
+        }
+        self.init(_grid: gameGrid, _answer: answer, _mistakes: mistakes, _scoreMultiplier: scoreMultiplier, _score: score, _seconds: seconds)
+    }
 }

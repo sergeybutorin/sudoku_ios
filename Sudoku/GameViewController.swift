@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 class GameViewController: UIViewController {
 
@@ -16,24 +17,32 @@ class GameViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var mistakesLabel: UILabel!
     @IBOutlet weak var multplierLabel: UILabel!
+    @IBOutlet weak var backButton: UIView!
     
     var timer:Timer?
-    var seconds = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let loadedGame = loadGame() {
+            grid.sudoku = loadedGame
+        } else {
+            grid.sudoku = Sudoku()
+        }
         timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector:#selector(onUpdateTimer), userInfo: nil, repeats:true)
     }
-
+    
     
     func onUpdateTimer()
     {
-        seconds += 1
-        if seconds % 5 == 0 {
+        grid.sudoku.seconds += 1
+        if grid.sudoku.seconds % 5 == 0 {
             grid.sudoku.scoreMultiplier -= 1
+            if grid.sudoku.seconds % 30 == 0 {
+                saveGame()
+            }
         }
-        let min:Int = (seconds / 60) % 60
-        let sec:Int = seconds % 60
+        let min:UInt = (grid.sudoku.seconds / 60) % 60
+        let sec:UInt = grid.sudoku.seconds % 60
         
         let min_p:String = String(format: "%02d", min)
         let sec_p:String = String(format: "%02d", sec)
@@ -53,14 +62,25 @@ class GameViewController: UIViewController {
             fatalError("Wrong number: \(number)")
         }
         grid.fieldSet(value: String(sender .tag))
+        saveGame()
     }
-   
-    /*
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func backButtonPushed(_ sender: UIButton) {
+        saveGame()
+        
     }
-    */
-
+    
+    //MARK: Private Methods
+    private func saveGame() {
+        let isSuccessfulSave = NSKeyedArchiver.archiveRootObject(grid.sudoku, toFile: Sudoku.ArchiveURL.path)
+        if isSuccessfulSave {
+            os_log("Game successfully saved.", log: OSLog.default, type: .debug)
+        } else {
+            os_log("Failed to save game...", log: OSLog.default, type: .error)
+        }
+    }
+    
+    private func loadGame() -> Sudoku?  {
+        return NSKeyedUnarchiver.unarchiveObject(withFile: Sudoku.ArchiveURL.path) as? Sudoku
+    }
 }
-

@@ -38,13 +38,13 @@ import UIKit
     func fieldSet(value: String){
         if let index = fields.index(of: fi){
             if (Int(value) == sudoku.answer[index / (sudoku.n * sudoku.n)][index % (sudoku.n * sudoku.n)]) {
+                sudoku.gameGrid[index / (sudoku.n * sudoku.n)][index % (sudoku.n * sudoku.n)] = Int(value)!
                 sudoku.score += ((sudoku.scoreMultiplier + 50) * UInt(value)!)
                 fi.setTitle(value, for: .normal)
-                print("Score: ", sudoku.score)
             } else if fi.currentTitle == "" {
+                sudoku.gameGrid[index / (sudoku.n * sudoku.n)][index % (sudoku.n * sudoku.n)] = Int(value)!
                 sudoku.mistakes += 1
                 sudoku.scoreMultiplier -= 50
-                print("Mistakes: ", sudoku.mistakes)
             }
         }
     }
