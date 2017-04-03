@@ -13,38 +13,36 @@ import UIKit
     // MARK: Properties
     private var fields = [UIButton]()
     var sudoku: Sudoku! = Sudoku()
-    private var fi: UIButton!
+    private var selectedField: UIButton!
     
     
     // MARK: Field Action
     func fieldTapped(field: UIButton){
         if field.currentTitle == "" {
-            if let prev = fi {
-                fi.backgroundColor = UIColor.lightGray
-                if let num = Int(prev.currentTitle!){
-                    if num >= 1 && num <= 9 {
-                        fi.backgroundColor = UIColor.green
-                    }
-                }
+            if selectedField != nil {
+                selectedField.backgroundColor = UIColor.lightGray
             }
             field.backgroundColor = UIColor.red
-            field.isSelected = true
-            fi = field
+            selectedField = field
         }
     }
     
     // Set new value for selected field
     
     func fieldSet(value: String){
-        if let index = fields.index(of: fi){
-            if (Int(value) == sudoku.answer[index / (sudoku.n * sudoku.n)][index % (sudoku.n * sudoku.n)]) {
-                sudoku.gameGrid[index / (sudoku.n * sudoku.n)][index % (sudoku.n * sudoku.n)] = Int(value)!
-                sudoku.score += ((sudoku.scoreMultiplier + 50) * UInt(value)!)
-                fi.setTitle(value, for: .normal)
-            } else if fi.currentTitle == "" {
-                sudoku.gameGrid[index / (sudoku.n * sudoku.n)][index % (sudoku.n * sudoku.n)] = Int(value)!
-                sudoku.mistakes += 1
-                sudoku.scoreMultiplier -= 50
+        if selectedField != nil {
+            if let index = fields.index(of: selectedField){
+                if (Int(value) == sudoku.answer[index / (sudoku.n * sudoku.n)][index % (sudoku.n * sudoku.n)]) {
+                    sudoku.gameGrid[index / (sudoku.n * sudoku.n)][index % (sudoku.n * sudoku.n)] = Int(value)!
+                    sudoku.score += ((sudoku.scoreMultiplier + 50) * UInt(value)!)
+                    selectedField.setTitle(value, for: .normal)
+                    selectedField.backgroundColor = UIColor.green
+                    selectedField = nil
+                } else if selectedField.currentTitle == "" {
+                    sudoku.gameGrid[index / (sudoku.n * sudoku.n)][index % (sudoku.n * sudoku.n)] = Int(value)!
+                    sudoku.mistakes += 1
+                    sudoku.scoreMultiplier -= 50
+                }
             }
         }
     }
