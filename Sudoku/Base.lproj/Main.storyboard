@@ -14,7 +14,7 @@
         <!--Menu View Controller-->
         <scene sceneID="cWY-74-9Ch">
             <objects>
-                <viewController id="sTD-SA-XYf" customClass="MenuViewController" customModule="Sudoku" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuViewController" id="sTD-SA-XYf" customClass="MenuViewController" customModule="Sudoku" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bXU-0w-H5Z"/>
                         <viewControllerLayoutGuide type="bottom" id="Adk-pR-fsq"/>
@@ -36,13 +36,16 @@
                                         <rect key="frame" x="0.0" y="0.0" width="129" height="45"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                         <state key="normal" title="Continue"/>
+                                        <connections>
+                                            <action selector="continueGameButtonPushed:" destination="sTD-SA-XYf" eventType="touchUpInside" id="3Kx-zk-4yw"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H1H-g4-ysv">
                                         <rect key="frame" x="0.0" y="58" width="129" height="45"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                         <state key="normal" title="New game"/>
                                         <connections>
-                                            <segue destination="BYZ-38-t0r" kind="show" id="Inb-CW-55w"/>
+                                            <action selector="newGameButtonPushed:" destination="sTD-SA-XYf" eventType="touchUpInside" id="caF-sg-zzK"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUU-NG-QOp">
@@ -55,7 +58,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JHc-v4-oeB">
                                 <rect key="frame" x="337" y="625" width="22" height="22"/>
                                 <connections>
-                                    <segue destination="FDR-W4-PGw" kind="show" animates="NO" id="YdN-vH-ohG"/>
+                                    <action selector="infoButtonPushed:" destination="sTD-SA-XYf" eventType="touchUpInside" id="nnu-gH-1Zi"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -71,7 +74,9 @@
                     </view>
                     <connections>
                         <outlet property="continueButton" destination="0q2-lg-yVB" id="w93-zK-1d9"/>
+                        <outlet property="infoButton" destination="JHc-v4-oeB" id="dWQ-wg-sBr"/>
                         <outlet property="newGameButton" destination="H1H-g4-ysv" id="9ng-Jk-VnH"/>
+                        <outlet property="ratingButton" destination="XUU-NG-QOp" id="Clt-I3-7Vd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nPp-Rp-0dX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -81,7 +86,7 @@
         <!--Game View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="GameViewController" customModule="Sudoku" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameViewController" id="BYZ-38-t0r" customClass="GameViewController" customModule="Sudoku" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -281,10 +286,10 @@
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="39.130434782608695"/>
         </scene>
-        <!--About-->
+        <!--Menu View Controller-->
         <scene sceneID="CpB-8b-3nG">
             <objects>
-                <viewController id="FDR-W4-PGw" customClass="About" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AboutViewController" id="FDR-W4-PGw" customClass="MenuViewController" customModule="Sudoku" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6kE-Gw-y8i"/>
                         <viewControllerLayoutGuide type="bottom" id="WeT-ho-JTW"/>
@@ -310,7 +315,7 @@
                                 <rect key="frame" x="16" y="20" width="34" height="30"/>
                                 <state key="normal" title="Back"/>
                                 <connections>
-                                    <segue destination="sTD-SA-XYf" kind="show" animates="NO" action="showDetailViewController:sender:" id="hGl-xV-fpS"/>
+                                    <action selector="backButtonPushed:" destination="FDR-W4-PGw" eventType="touchUpInside" id="tpZ-Rc-lqF"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jJz-Df-gNv">

@@ -21,7 +21,16 @@ class GameViewController: UIViewController {
     @IBOutlet weak var backButton: UIButton!
 
     var timer:Timer?
-    var seconds = 0
+    
+    func startGame(isNewGame: Bool) {
+        if isNewGame {
+            grid.sudoku = Sudoku()
+        } else if let loadedGame = loadGame() {
+            grid.sudoku = loadedGame
+        } else {
+            os_log("Failed to load game...", log: OSLog.default, type: .error)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,16 +41,19 @@ class GameViewController: UIViewController {
         }
         timer = Timer.scheduledTimer(timeInterval: 1.0, target:self, selector:#selector(onUpdateTimer), userInfo: nil, repeats:true)
     }
-
+    
     
     func onUpdateTimer()
     {
-        seconds += 1
-        if seconds % 5 == 0 {
+        grid.sudoku.seconds += 1
+        if grid.sudoku.seconds % 5 == 0 {
             grid.sudoku.scoreMultiplier -= 1
+            if grid.sudoku.seconds % 30 == 0 {
+                saveGame()
+            }
         }
-        let min:Int = (seconds / 60) % 60
-        let sec:Int = seconds % 60
+        let min:UInt = (grid.sudoku.seconds / 60) % 60
+        let sec:UInt = grid.sudoku.seconds % 60
         
         let min_p:String = String(format: "%02d", min)
         let sec_p:String = String(format: "%02d", sec)
@@ -61,6 +73,7 @@ class GameViewController: UIViewController {
             fatalError("Wrong number: \(number)")
         }
         grid.fieldSet(value: String(sender .tag))
+        saveGame()
     }
     
     @IBAction func backButttonPushed(_ sender: UIButton) {
@@ -87,7 +100,4 @@ class GameViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    */
-
 }
-

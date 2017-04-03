@@ -13,6 +13,9 @@ class MenuViewController: UIViewController {
     // MARK: Properties
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var newGameButton: UIButton!
+    @IBOutlet weak var ratingButton: UIButton!
+    @IBOutlet weak var infoButton: UIButton!
+    let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,15 +28,26 @@ class MenuViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func continueGameButtonPushed(_ sender: UIButton) {
+        let GameViewController = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
+        self.present(GameViewController, animated:true, completion:nil)
+        GameViewController.startGame(isNewGame: false)
     }
-    */
-
+    
+    @IBAction func newGameButtonPushed(_ sender: UIButton) {
+        let GameViewController = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
+        self.present(GameViewController, animated:true, completion:nil)
+        GameViewController.startGame(isNewGame: true)
+    }
+    
+    @IBAction func infoButtonPushed(_ sender: UIButton) {
+        let AboutViewController = storyboard?.instantiateViewController(withIdentifier: "AboutViewController")
+        self.present(AboutViewController!, animated:true, completion:nil)
+    }
+    
+    @IBAction func backButtonPushed(_ sender: UIButton) {
+        let MenuViewController = storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
+        self.present(MenuViewController, animated:true, completion:nil)
+    }
 }

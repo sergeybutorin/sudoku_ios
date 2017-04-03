@@ -19,6 +19,7 @@ class Sudoku: NSObject, NSCoding{
     var mistakes: UInt = 0
     var scoreMultiplier: UInt = 1000
     var score: UInt = 0
+    var seconds: UInt = 0
     let n = 3
     let digits = [1,2,3,4,5,6,7,8,9]
     
@@ -129,7 +130,7 @@ class Sudoku: NSObject, NSCoding{
                 if !solving(board: table_solution) {
                     gameGrid[i][j] = temp
                     digitCount += 1
-                } 
+                }
                 if digitCount == difficult{
                     return
                 }
@@ -154,7 +155,7 @@ class Sudoku: NSObject, NSCoding{
         }
         return isSolved
     }
-
+    
     
     
     func subgrid(_ board: [[Int]], pos: (Int, Int)) -> [Int] {
