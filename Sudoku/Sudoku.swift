@@ -52,9 +52,7 @@ class Sudoku: NSObject, NSCoding{
                 var digitsForBlock = getPossibleDigits(currentRow: rowIdx, currentCol: colIdx)
                 if digitsForBlock.isEmpty {
                     colIdx -= 1
-                    gameGrid[rowIdx][colIdx] = 0
-                    cellWrong += 1
-                    if (cellWrong > 3) {
+                    if (cellWrong > 3 || colIdx < 0) {
                         gameGrid[rowIdx] = [Int](repeating:0, count:n*n)
                         colIdx = 0
                         cellWrong = 0
@@ -65,6 +63,8 @@ class Sudoku: NSObject, NSCoding{
                             rowWrong = 0
                         }
                     }
+                    gameGrid[rowIdx][colIdx] = 0
+                    cellWrong += 1
                     continue
                 }
                 gameGrid[rowIdx][colIdx] = digitsForBlock.remove(at: Int(arc4random_uniform(UInt32(digitsForBlock.count))))

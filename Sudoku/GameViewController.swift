@@ -66,7 +66,7 @@ class GameViewController: UIViewController {
         if !(number >= 1 && number <= 9)  {
             fatalError("Wrong number: \(number)")
         }
-        grid.fieldSet(value: String(sender .tag))
+        grid.setCellValue(value: String(sender .tag))
         saveGame()
     }
     
@@ -74,6 +74,11 @@ class GameViewController: UIViewController {
         saveGame()
         let MenuViewController = storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
         self.present(MenuViewController, animated:true, completion:nil)
+    }
+    
+    @IBAction func successButtonPushed(_ sender: UIButton) {
+        let SuccessViewController = storyboard?.instantiateViewController(withIdentifier: "SuccessViewController")
+        self.present(SuccessViewController!, animated:true, completion:nil)
     }
     
     //MARK: Private Methods

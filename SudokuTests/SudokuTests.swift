@@ -21,16 +21,15 @@ class SudokuTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testSudoku() {
+        let sudoku: Sudoku = Sudoku()
+        XCTAssertEqual(0, sudoku.mistakes)
+//        for row in sudoku.gameGrid {
+//            for col in row {
+//                if col == 0 {
+//                    sudoku.gameGrid[row][col] = sudoku.answer[row][col]
+//                }
+//            }
+//        }
     }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }
