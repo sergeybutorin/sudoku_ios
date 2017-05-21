@@ -136,7 +136,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zR-8J-GBU">
-                                        <rect key="frame" x="78" y="0.5" width="30.5" height="30"/>
+                                        <rect key="frame" x="78" y="0.5" width="31" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="8zR-8J-GBU" secondAttribute="height" multiplier="31:30" id="E0L-5Z-ecP"/>
                                         </constraints>
@@ -146,7 +146,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EDY-Vr-taU">
-                                        <rect key="frame" x="116.5" y="0.0" width="31" height="31"/>
+                                        <rect key="frame" x="117" y="0.0" width="31" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="EDY-Vr-taU" secondAttribute="height" multiplier="1:1" id="chG-Te-t8p"/>
                                         </constraints>
@@ -156,7 +156,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ul8-7s-QOW">
-                                        <rect key="frame" x="155.5" y="0.5" width="31" height="30"/>
+                                        <rect key="frame" x="156" y="0.5" width="31" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ul8-7s-QOW" secondAttribute="height" multiplier="31:30" id="t9m-vU-jDt"/>
                                         </constraints>
@@ -166,7 +166,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Vu-Dh-xOq">
-                                        <rect key="frame" x="194.5" y="0.5" width="31.5" height="30"/>
+                                        <rect key="frame" x="195" y="0.5" width="31" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="7Vu-Dh-xOq" secondAttribute="height" multiplier="31:30" id="3M4-q0-VWz"/>
                                         </constraints>
@@ -307,7 +307,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABOUT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3IL-AT-8Id">
-                                <rect key="frame" x="109.5" y="60" width="156.5" height="71"/>
+                                <rect key="frame" x="109" y="60" width="157" height="71"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -327,25 +327,25 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jJz-Df-gNv">
-                                <rect key="frame" x="59" y="191" width="257" height="95.5"/>
+                                <rect key="frame" x="59" y="191" width="257" height="97"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="17" translatesAutoresizingMaskIntoConstraints="NO" id="s3w-cu-Dlp">
-                                        <rect key="frame" x="0.0" y="0.0" width="257" height="95.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="257" height="97"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author: Sergey Butorin" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="98Q-cO-oNa">
-                                                <rect key="frame" x="0.0" y="0.0" width="257" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="257" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="E-mail: sergeybutorin@inbox.ru" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="339-nn-NS9">
-                                                <rect key="frame" x="0.0" y="37.5" width="257" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="38" width="257" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Github: https://github.com/serbut" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abX-V3-BHm">
-                                                <rect key="frame" x="0.0" y="75" width="257" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="76" width="257" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -383,46 +383,46 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUCCESS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0x-G3-tCF">
-                                <rect key="frame" x="84" y="60" width="207.5" height="71"/>
+                                <rect key="frame" x="84" y="60" width="208" height="71"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="50"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="nr3-YM-Mw8">
-                                <rect key="frame" x="121" y="201" width="133" height="213"/>
+                                <rect key="frame" x="121" y="201" width="133" height="215"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter your name:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TeJ-C2-a9i">
-                                        <rect key="frame" x="0.0" y="0.0" width="133" height="24.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="133" height="25"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ctl-EI-uFN">
-                                        <rect key="frame" x="0.0" y="35.5" width="133" height="30"/>
+                                        <rect key="frame" x="0.0" y="36" width="133" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your score:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YuC-CU-wHV">
-                                        <rect key="frame" x="0.0" y="76.5" width="133" height="24.5"/>
+                                        <rect key="frame" x="0.0" y="77" width="133" height="25"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your time:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzy-dw-uQi">
-                                        <rect key="frame" x="0.0" y="112" width="133" height="24.5"/>
+                                        <rect key="frame" x="0.0" y="113" width="133" height="25"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mistakes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Djh-OV-YNn">
-                                        <rect key="frame" x="0.0" y="147.5" width="133" height="24.5"/>
+                                        <rect key="frame" x="0.0" y="149" width="133" height="25"/>
                                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLF-DR-fes">
-                                        <rect key="frame" x="0.0" y="183" width="133" height="30"/>
+                                        <rect key="frame" x="0.0" y="185" width="133" height="30"/>
                                         <state key="normal" title="Submit"/>
                                         <connections>
                                             <action selector="successButtonPushed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mMz-rn-vU0"/>
