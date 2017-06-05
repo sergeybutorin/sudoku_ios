@@ -20,6 +20,7 @@ class Sudoku: NSObject, NSCoding{
     var scoreMultiplier: UInt = 1000
     var score: UInt = 0
     var seconds: UInt = 0
+    var digitsLeft: UInt = 0
     let n = 3
     let digits = [1,2,3,4,5,6,7,8,9]
     
@@ -109,10 +110,11 @@ class Sudoku: NSObject, NSCoding{
         return result
     }
     
-    func deleteFields(difficult: Int = 30) {
+    func deleteFields(difficult: UInt = 80) {
+        digitsLeft = UInt(NSDecimalNumber(decimal: pow(Decimal(n),  4))) - difficult
         var flook = [[Int]](repeating:[Int](repeating:0, count:n*n), count:n*n)
         var iterator = 0
-        var digitCount = Int(NSDecimalNumber(decimal: pow(Decimal(n),  4)))
+        var digitCount = UInt(NSDecimalNumber(decimal: pow(Decimal(n),  4)))
         
         while iterator < Int(NSDecimalNumber(decimal: pow(Decimal(n),  4))) {
             let i = Int(arc4random_uniform(UInt32(n * n))), j = Int(arc4random_uniform(UInt32(n * n)))

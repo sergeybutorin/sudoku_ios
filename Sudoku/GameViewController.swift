@@ -62,24 +62,26 @@ class GameViewController: UIViewController {
     // MARK: Actions
     
     @IBAction func digitPushed(_ sender: UIButton) {
-        let number = sender .tag
+        let number = sender.tag
         if !(number >= 1 && number <= 9)  {
             fatalError("Wrong number: \(number)")
         }
         grid.setCellValue(value: String(sender .tag))
+        if grid.sudoku.digitsLeft == 0 {
+            timer?.invalidate()
+            os_log("Game over!", log: OSLog.default, type: .debug)
+            let SuccessViewController = storyboard?.instantiateViewController(withIdentifier: "SuccessViewController")
+            self.present(SuccessViewController!, animated:true, completion:nil)
+        }
         saveGame()
     }
     
     @IBAction func backButtonPushed(_ sender: UIButton) {
         saveGame()
         let MenuViewController = storyboard?.instantiateViewController(withIdentifier: "MenuViewController") as! MenuViewController
-        self.present(MenuViewController, animated:true, completion:nil)
+        self.present(MenuViewController, animated: true, completion:nil)
     }
     
-    @IBAction func successButtonPushed(_ sender: UIButton) {
-        let SuccessViewController = storyboard?.instantiateViewController(withIdentifier: "SuccessViewController")
-        self.present(SuccessViewController!, animated:true, completion:nil)
-    }
     
     //MARK: Private Methods
     private func saveGame() {

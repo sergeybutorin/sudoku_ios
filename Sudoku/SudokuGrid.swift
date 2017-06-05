@@ -59,6 +59,7 @@ import UIKit
             if sudoku.gameGrid[selectedCell.row][selectedCell.col] == 0 {
                 if Int(value) == sudoku.answer[selectedCell.row][selectedCell.col] {
                     sudoku.gameGrid[selectedCell.row][selectedCell.col] = Int(value)!
+                    sudoku.digitsLeft -= 1
                     sudoku.score += ((sudoku.scoreMultiplier + 50) * UInt(value)!)
                     selectedCell.setTitle(value, for: .normal)
                     selectedCell.backgroundColor = UIColor.init(rgb: 0x80E800)
