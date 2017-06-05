@@ -11,16 +11,18 @@ import UIKit
 class MenuViewController: UIViewController {
     
     // MARK: Properties
-    @IBOutlet weak var continueButton: UIButton!
-    @IBOutlet weak var newGameButton: UIButton!
-    @IBOutlet weak var ratingButton: UIButton!
-    @IBOutlet weak var infoButton: UIButton!
+    
+    @IBOutlet var mainSubview: UIView!
+    @IBOutlet var selectDifficultySubview: UIView!
+    @IBOutlet var aboutSubview: UIView!
+    
     let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.view.addSubview(mainSubview)
+        self.mainSubview.center = self.view.center
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,14 +38,40 @@ class MenuViewController: UIViewController {
     }
     
     @IBAction func newGameButtonPushed(_ sender: UIButton) {
+        self.mainSubview.removeFromSuperview()
+        self.view.addSubview(selectDifficultySubview)
+        selectDifficultySubview.center = self.view.center
+    }
+    
+    @IBAction func easyGameButtonPushed(_ sender: UIButton) { // TODO: rewrite this
         let GameViewController = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
         self.present(GameViewController, animated:true, completion:nil)
         GameViewController.startGame(isNewGame: true)
+        GameViewController.grid.sudoku.deleteFields(difficult: 35)
+    }
+    
+    @IBAction func mediumGameButtonPushed(_ sender: UIButton) { // TODO: rewrite this
+        let GameViewController = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
+        self.present(GameViewController, animated:true, completion:nil)
+        GameViewController.startGame(isNewGame: true)
+        GameViewController.grid.sudoku.deleteFields(difficult: 30)
+    }
+    
+    @IBAction func hardGameButtonPushed(_ sender: UIButton) { // TODO: rewrite this
+        let GameViewController = storyboard?.instantiateViewController(withIdentifier: "GameViewController") as! GameViewController
+        self.present(GameViewController, animated:true, completion:nil)
+        GameViewController.startGame(isNewGame: true)
+        GameViewController.grid.sudoku.deleteFields(difficult: 25)
     }
     
     @IBAction func infoButtonPushed(_ sender: UIButton) {
-        let AboutViewController = storyboard?.instantiateViewController(withIdentifier: "AboutViewController")
-        self.present(AboutViewController!, animated:true, completion:nil)
+        self.view.addSubview(aboutSubview)
+        self.aboutSubview.center = self.view.center
+        self.aboutSubview.layer.cornerRadius = 10
+    }
+    
+    @IBAction func aboutDoneButtonPushed(_ sender: UIButton) {
+        self.aboutSubview.removeFromSuperview()
     }
     
     @IBAction func backButtonPushed(_ sender: UIButton) {

@@ -74,7 +74,6 @@ class Sudoku: NSObject, NSCoding{
             rowIdx += 1
         }
         answer = gameGrid
-        deleteFields()
     }
     
     init(_grid: [[Int]], _answer: [[Int]], _mistakes: UInt, _scoreMultiplier: UInt, _score: UInt, _seconds: UInt) {
@@ -110,7 +109,7 @@ class Sudoku: NSObject, NSCoding{
         return result
     }
     
-    func deleteFields(difficult: UInt = 80) {
+    func deleteFields(difficult: UInt) {
         digitsLeft = UInt(NSDecimalNumber(decimal: pow(Decimal(n),  4))) - difficult
         var flook = [[Int]](repeating:[Int](repeating:0, count:n*n), count:n*n)
         var iterator = 0
